@@ -5,4 +5,14 @@
 - [ ] NonBlocking Local poll
 - [ ] Yield before read
 - [ ] Using a counter with nonblocking polls (uThread)
-- [ ] No IO Semaphore
+- [x] No IO Semaphore
+
+---
+
+Poller thread polls in a loop without timeouts.
+
+poller thread:
+
+while(true){
+    poll(-1,0);
+}

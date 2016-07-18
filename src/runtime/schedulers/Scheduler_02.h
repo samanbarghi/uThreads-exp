@@ -75,7 +75,7 @@ private:
     }
 
     uThread* nonBlockingSwitch(kThread& kt){
-        IOHandler::iohandler.nonblockingPoll();
+        //IOHandler::iohandler.nonblockingPoll();
         uThread* ut = runQueue.pop();
         if(ut == nullptr){
             if ( kt.currentUT->state == uThread::State::YIELD)
@@ -91,7 +91,7 @@ private:
         /* before blocking inform the poller thread of our
          * intent.
          */
-        IOHandler::iohandler.sem.post();
+//        IOHandler::iohandler.sem.post();
 
         sem.wait();
         uThread* ut = runQueue.pop();
@@ -101,7 +101,7 @@ private:
          * We signaled the poller thread, now it's the time
          * to signal it again that we are unblocked.
          */
-        while(!IOHandler::iohandler.sem.trywait());
+//        while(!IOHandler::iohandler.sem.trywait());
 
         return ut;
     }
