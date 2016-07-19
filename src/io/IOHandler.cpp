@@ -189,6 +189,7 @@ ssize_t IOHandler::nonblockingPoll(){
 void IOHandler::pollerFunc(void* ioh){
     IOHandler* cioh = (IOHandler*)ioh;
     while(true){
+        usleep(1000);
 
 #if defined(NPOLLNONBLOCKING)
         //do a blocking poll
