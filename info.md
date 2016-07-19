@@ -11,8 +11,10 @@
 
 Poller thread polls in a loop without timeouts.
 
-poller thread:
+## poller thread:
 
-while(true){
-    poll(-1,0);
-}
+```
+    while(true){
+        poll(-1,0);
+    }
+```
