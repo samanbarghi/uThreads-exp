@@ -11,9 +11,11 @@
 
 Poller thread polls in a loop with 5ms timeout.
 
-poller thread:
+## poller thread:
 
-while(true){
-    poll(-1,0);
-    usleep(5000);
-}
+```
+    while(true){
+        blocking_poll();
+        usleep(5000);
+    }
+```
