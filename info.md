@@ -2,7 +2,7 @@
 - [ ] Poller thread timeout without semaphore (usleep(1ms))
 - [x] Bulk Push
 - [ ] Timed semaphore in poller thread
-- [ ] NonBlocking Local poll
+- [x] NonBlocking Local poll
 - [ ] Yield before read
 - [ ] Using a counter with nonblocking polls (uThread)
 - [ ] No IO Semaphore
@@ -17,7 +17,8 @@ Poller thread polls only when a kThread is out of work
     while(true){
         sem.wait();
         sem.post();
-        blocking_poll();
+        if(atomic_flag acquired)
+            blocking_poll();
     }
 ```
 
@@ -28,4 +29,11 @@ Poller thread polls only when a kThread is out of work
     io.sem.wait();
 
     ...
+```
+
+## Every context switch
+```
+        if(atomic_flag acquired)
+            nonblocking_poll();
+
 ```
