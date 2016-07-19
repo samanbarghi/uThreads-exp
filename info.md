@@ -15,6 +15,6 @@ Poller thread polls in a loop without timeouts.
 
 ```
     while(true){
-        poll(-1,0);
+        blocking_poll();
     }
 ```
