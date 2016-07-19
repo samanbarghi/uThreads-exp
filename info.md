@@ -1,5 +1,5 @@
 - Scheduler: Intrusive Lock-free runqueue per kThread
-- [x] Poller thread timeout without semaphore (usleep(1ms))
+- [x] Poller thread timeout without semaphore (usleep(5000))
 - [ ] Bulk Push
 - [ ] Timed semaphore in poller thread
 - [ ] NonBlocking Local poll
@@ -9,11 +9,11 @@
 
 ---
 
-Poller thread polls in a loop with 1ms timeout.
+Poller thread polls in a loop with 5ms timeout.
 
 poller thread:
 
 while(true){
     poll(-1,0);
-    usleep(1000);
+    usleep(5000);
 }
