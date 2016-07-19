@@ -11,9 +11,11 @@
 
 Poller thread polls in a loop with 1ms timeout with bulk push
 
-poller thread:
+## poller thread:
 
-while(true){
-    poll(-1,0);
-    usleep(1000);
-}
+```
+    while(true){
+        blocking_poll();
+        usleep(1000);
+    }
+```
