@@ -1,7 +1,7 @@
 - Scheduler: Intrusive Lock-free runqueue per kThread
 - [ ] Poller thread timeout without semaphore (usleep(1ms))
 - [x] Bulk Push
-- [ ] Timed semaphore in poller thread
+- [x] Timed semaphore in poller thread: 1ms
 - [ ] NonBlocking Local poll
 - [ ] Yield before read
 - [ ] Using a counter with nonblocking polls (uThread)
@@ -9,14 +9,16 @@
 
 ---
 
-Poller thread polls only when a kThread is out of work
+Poller thread polls only when a kThread is out of work,
+or semaphore timer is expired (1ms).
 
 ## Poller thread
 
 ```
     while(true){
-        sem.wait();
-        sem.post();
+        //if timer is not expired, post
+        if(!sem.timedwait(1ms))
+            sem.post();
         blocking_poll();
     }
 ```
