@@ -15,7 +15,7 @@ LIB_NAME=libuThreads.so
 LIB_FULL_NAME=$(LIB_NAME).$(VERSION)
 
 CXX		 := g++ -std=c++1y
-CXXFLAGS := -O3 -g -m64 -fpermissive -mtls-direct-seg-refs -fno-extern-tls-init -pthread -DNDEBUG -DNPOLLNONBLOCKING -DNPOLLBULKPUSH
+CXXFLAGS := -O3 -g -m64 -fpermissive -mtls-direct-seg-refs -fno-extern-tls-init -pthread -DNDEBUG -DNPOLLNONBLOCKING #-DNPOLLBULKPUSH
 
 SRCEXT 	:= cpp
 ASMEXT 	:= S
