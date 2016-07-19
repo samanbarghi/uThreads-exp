@@ -17,7 +17,7 @@ Poller thread polls only when a kThread is out of work
     while(true){
         sem.wait();
         sem.post();
-        poll(-1,0);
+        blocking_poll();
     }
 ```
 
