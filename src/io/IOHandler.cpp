@@ -207,7 +207,7 @@ void IOHandler::pollerFunc(void* ioh){
         * on the semaphore. This works along with post and wait in
         * the scheduler.
         */
-       if( !(cioh->sem.timedwait(1)) )
+       if( !(cioh->sem.timedwait(5)) )
             cioh->sem.post();
    }
 }
