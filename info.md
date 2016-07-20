@@ -5,7 +5,7 @@
 - [ ] NonBlocking Local poll
 - [ ] Yield before read
 - [ ] Using a counter with nonblocking polls (uThread)
-- [x] No IO Semaphore
+- [ ] IO Semaphore
 
 ---
 
