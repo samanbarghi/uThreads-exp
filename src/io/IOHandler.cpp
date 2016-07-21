@@ -193,7 +193,7 @@ void IOHandler::pollerFunc(void* ioh){
     clock_gettime(CLOCK_REALTIME, &ts);
 
     const long BILLION = 1000000000;
-    const long MS = 5000;
+    const long MS = 5000000;
 
     while(true){
 
@@ -222,7 +222,6 @@ void IOHandler::pollerFunc(void* ioh){
                 ts.tv_sec = ts.tv_sec + 1;
                 ts.tv_nsec = ts.tv_nsec - BILLION;
             }
-
        }
    }
 }
