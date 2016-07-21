@@ -179,8 +179,8 @@ ssize_t IOHandler::nonblockingPoll(){
 #ifndef NPOLLNONBLOCKING
     if(!isPolling.test_and_set(std::memory_order_acquire)){
         //do a nonblocking poll
-        counter = poll(0,0);
         ++pollCounter;
+        counter = poll(0,0);
         isPolling.clear(std::memory_order_release);
     }
 #endif //NPOLLNONBLOCKING
@@ -189,13 +189,17 @@ ssize_t IOHandler::nonblockingPoll(){
 
 void IOHandler::pollerFunc(void* ioh){
     IOHandler* cioh = (IOHandler*)ioh;
+    uint64_t localCounter = 0;
+
     while(true){
 
 #if defined(NPOLLNONBLOCKING)
         //do a blocking poll
         cioh->poll(-1, 0);
 #else
-        if(!cioh->isPolling.test_and_set(std::memory_order_acquire)){
+        localCounter = cioh->pollCounter;
+        usleep(1000);
+        if(localCounter == cioh->pollCounter && !cioh->isPolling.test_and_set(std::memory_order_acquire)){
             //do a blocking poll
             ++cioh->pollCounter;
             cioh->poll(-1, 0);
@@ -209,7 +213,7 @@ void IOHandler::pollerFunc(void* ioh){
         * on the semaphore. This works along with post and wait in
         * the scheduler.
         */
-       cioh->sem.wait();
-       cioh->sem.post();
+//       cioh->sem.wait();
+//       cioh->sem.post();
    }
 }
