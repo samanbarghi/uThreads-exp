@@ -195,8 +195,6 @@ void IOHandler::pollerFunc(void* ioh){
     const long BILLION = 1000000000;
     const long MS = 5000;
 
-    long nsec=0;
-
     while(true){
 
 #if defined(NPOLLNONBLOCKING)
@@ -219,11 +217,12 @@ void IOHandler::pollerFunc(void* ioh){
        if( !(cioh->sem.timedwait(ts)) )
             cioh->sem.post();
        else{
-           nsec = ts.tv_nsec + MS;
-           if(nsec > BILLION)
-               ts.tv_sec = ts.tv_sec+1;
+            ts.tv_nsec = ts.tv_nsec + MS;
+            if slowpath(ts.tv_nsec >= BILLION) {
+                ts.tv_sec = ts.tv_sec + 1;
+                ts.tv_nsec = ts.tv_nsec - BILLION;
+            }
 
-           ts.tv_nsec = nsec % BILLION;
        }
    }
 }
