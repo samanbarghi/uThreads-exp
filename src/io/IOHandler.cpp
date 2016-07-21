@@ -220,11 +220,10 @@ void IOHandler::pollerFunc(void* ioh){
             cioh->sem.post();
        else{
            nsec = ts.tv_nsec + MS;
-           if(nsec > BILLION){
-               ts.tv_nsec = nsec % BILLION;
+           if(nsec > BILLION)
                ts.tv_sec = ts.tv_sec+1;
-           }else
-               ts.tv_nsec = nsec;
+
+           ts.tv_nsec = nsec % BILLION;
        }
    }
 }
