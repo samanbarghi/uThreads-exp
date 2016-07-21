@@ -3,13 +3,14 @@
 - [x] Bulk Push
 - [ ] Timed semaphore in poller thread
 - [x] NonBlocking Local poll
-- [ ] Yield before read
+- [x] Yield before read
 - [ ] Using a counter with nonblocking polls (uThread)
-- [ ] No IO Semaphore
+- [x] IO Semaphore
 
 ---
 
-Poller thread polls only when a kThread is out of work
+Poller thread polls only when a kThread is out of work, and at every context
+switch. Also, before every read command there is a yield.
 
 ## Poller thread
 
