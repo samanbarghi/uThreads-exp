@@ -3,14 +3,14 @@
 - [x] Bulk Push
 - [x] Timed semaphore in poller thread: 5ms
 - [ ] NonBlocking Local poll
-- [ ] Yield before read
+- [x] Yield before read
 - [ ] Using a counter with nonblocking polls (uThread)
-- [ ] No IO Semaphore
+- [x] IO Semaphore
 
 ---
 
 Poller thread polls only when a kThread is out of work,
-or semaphore timer is expired (5ms).
+or semaphore timer is expired (5ms). Yield before run.
 
 ## Poller thread
 
