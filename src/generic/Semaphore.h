@@ -34,11 +34,7 @@ public:
     bool trywait(){
         return (sem_trywait(&sem_) == 0);
     }
-    bool timedwait(uint64_t ms){
-        struct timespec ts;
-        ts.tv_sec = ms/1000;
-        ts.tv_nsec = (ms % 1000) * 1000000;
-
+    bool timedwait(struct timespec &ts){
         while(sem_timedwait(&sem_, &ts) == -1){
             if(errno == ETIMEDOUT)
                 return true;

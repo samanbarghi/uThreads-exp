@@ -20,6 +20,7 @@
 #include "Network.h"
 #include "runtime/kThread.h"
 #include <unistd.h>
+#include <time.h>
 #include <sys/types.h>
 #include <iostream>
 #include <sstream>
@@ -188,6 +189,14 @@ ssize_t IOHandler::nonblockingPoll(){
 
 void IOHandler::pollerFunc(void* ioh){
     IOHandler* cioh = (IOHandler*)ioh;
+    struct timespec ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+
+    const long BILLION = 1000000000;
+    const long MS = 1000;
+
+    long nsec=0;
+
     while(true){
 
 #if defined(NPOLLNONBLOCKING)
@@ -207,7 +216,15 @@ void IOHandler::pollerFunc(void* ioh){
         * on the semaphore. This works along with post and wait in
         * the scheduler.
         */
-       if( !(cioh->sem.timedwait(5)) )
+       if( !(cioh->sem.timedwait(ts)) )
             cioh->sem.post();
+       else{
+           nsec = ts.tv_nsec + MS;
+           if(nsec > BILLION){
+               ts.tv_nsec = nsec % BILLION;
+               ts.tv_sec = ts.tv_sec+1;
+           }else
+               ts.tv_nsec = nsec;
+       }
    }
 }
