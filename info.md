@@ -1,5 +1,5 @@
 - Scheduler: Intrusive Lock-free runqueue per kThread
-- [x] Poller thread timeout without semaphore (usleep(1ms))
+- [x] Poller thread timeout without semaphore (usleep(5ms))
 - [x] Bulk Push
 - [ ] Timed semaphore in poller thread
 - [x] NonBlocking Local poll
@@ -18,7 +18,7 @@ An epoch counter is added to poller thread to decrease the number of polls.
 ```
     while(true){
         read pollCounter
-        usleep(1000)
+        usleep(5000)
         if(pollCounter unchanged)
             if(atomic_flag acquired){
                 ++pollUTCounter;

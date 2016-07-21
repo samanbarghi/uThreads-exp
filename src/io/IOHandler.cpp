@@ -198,7 +198,7 @@ void IOHandler::pollerFunc(void* ioh){
         cioh->poll(-1, 0);
 #else
         localCounter = cioh->pollCounter;
-        usleep(1000);
+        usleep(5000);
         if(localCounter == cioh->pollCounter && !cioh->isPolling.test_and_set(std::memory_order_acquire)){
             //do a blocking poll
             ++cioh->pollCounter;
