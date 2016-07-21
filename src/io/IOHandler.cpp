@@ -179,8 +179,8 @@ ssize_t IOHandler::nonblockingPoll(){
 #ifndef NPOLLNONBLOCKING
     if(!isPolling.test_and_set(std::memory_order_acquire)){
         //do a nonblocking poll
-        counter = poll(0,0);
         ++pollCounter;
+        counter = poll(0,0);
         isPolling.clear(std::memory_order_release);
     }
 #endif //NPOLLNONBLOCKING
