@@ -6,11 +6,13 @@
 - [x] Yield before read
 - [ ] Using a counter with nonblocking polls (uThread)
 - [x] IO Semaphore
+- [x] N+1 cores for N worker threads
 
 ---
 
 Poller thread polls only when a kThread is out of work,
-or semaphore timer is expired (5ms). Yield before run.
+or semaphore timer is expired (5ms). Yield before run. This is different than
+5ms-2 since we use N+1  cores for N worker threads.
 
 ## Poller thread
 
