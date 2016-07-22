@@ -217,10 +217,11 @@ void IOHandler::pollerFunc(void* ioh){
        if( !(cioh->sem.timedwait(ts)) )
             cioh->sem.post();
        else{
-            ts.tv_nsec = ts.tv_nsec + MS;
-            if slowpath(ts.tv_nsec >= BILLION) {
-                ts.tv_sec = ts.tv_sec + 1;
-                ts.tv_nsec = ts.tv_nsec - BILLION;
+            clock_gettime(CLOCK_REALTIME, &ts);
+            ts.tv_nsec += MS;
+            if (ts.tv_nsec >= BILLION) {
+              ts.tv_nsec -= BILLION;
+              ts.tv_sec += 1;
             }
        }
    }

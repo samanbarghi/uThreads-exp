@@ -17,8 +17,16 @@ or semaphore timer is expired (5ms). Yield before run.
 ```
     while(true){
         //if timer is not expired, post
-        if(!sem.timedwait(5ms))
+        if(!sem.timedwait(ts))
             sem.post();
+        else{
+            clock_gettime(CLOCK_REALTIME, &ts);
+            ts.tv_nsec += 5000000;
+            if (ts.tv_nsec >= BILLION) {
+              ts.tv_nsec -= BILLION;
+              ts.tv_sec += 1;
+            }
+        }
         blocking_poll();
     }
 ```
