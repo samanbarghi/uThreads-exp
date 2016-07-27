@@ -91,10 +91,13 @@ private:
         /* before blocking inform the poller thread of our
          * intent.
          */
+        uThread* ut;
         IOHandler::iohandler.sem.post();
 
-        sem.wait();
-        uThread* ut = runQueue.pop();
+        while(ut != nullptr){
+            sem.wait();
+            ut = runQueue.pop();
+        }
         assert(ut != nullptr);
 
         /*
