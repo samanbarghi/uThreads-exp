@@ -94,7 +94,7 @@ private:
         uThread* ut;
         IOHandler::iohandler.sem.post();
 
-        while(ut != nullptr){
+        while(ut == nullptr){
             sem.wait();
             ut = runQueue.pop();
         }
